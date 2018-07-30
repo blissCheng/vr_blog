@@ -15,3 +15,6 @@ interface PageData {
   component: ReactChildren;
   name: string;
 }
+interface Qs {
+  [key: string]: any
+}
