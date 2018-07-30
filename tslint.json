@@ -1,0 +1,36 @@
+{
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  "no-trailing-whitespace": false,
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "config-overrides.js"
+    ]
+  },
+  "rules": {
+    "align": [
+        true,
+        "parameters",
+        "arguments",
+        "statements"
+    ],
+    "ordered-imports": false,
+    "no-var-requires": false
+  },
+  "one-line": [
+    true,
+    "check-open-brace",
+    "check-catch",
+    "check-else",
+    "check-whitespace"
+  ],
+  "whitespace": [
+    true,
+    "check-branch",
+    "check-decl",
+    "check-operator",
+    "check-separator",
+    "check-type"
+  ]
+}
