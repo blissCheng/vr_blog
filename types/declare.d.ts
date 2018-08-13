@@ -1,5 +1,3 @@
-import { ReactChildren } from "react";
-
 //使图片css可导入
 declare module '*.svg'
 declare module '*.png'
@@ -8,11 +6,12 @@ declare module '*.less' {
   const content: {[className: string]: string};
   export = content;
 }
+declare module '*.css'
 
 
 interface PageData {
   path: string;
-  component: ReactChildren;
+  component: any;
   name: string;
 }
 interface Qs {

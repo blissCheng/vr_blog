@@ -1,5 +1,5 @@
 import * as React from 'react';
-import HomeCanvas from './components/canvas';
+import Home from './pages/home';
 // import { Router, Route, Switch } from 'react-router-dom';
 // const { }
 class App extends React.Component {
@@ -8,7 +8,9 @@ class App extends React.Component {
   }
   public render() {
     return (
-      <HomeCanvas/>
+      <div style={{height: '100%'}}>
+        <Home/>
+      </div>
     );
   }
 }
