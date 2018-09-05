@@ -21,6 +21,29 @@
   }
   .ul {
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin-top: 20px;
+    padding: 0 40px;
+    >li {
+      border-bottom: 1px solid;
+      border-bottom-color: @theme;
+      padding: 10px;
+      transition: border-bottom-color .3s ease-in-out 0s;
+      
+      &:hover {
+        border-bottom-color: @f-grey-2;
+      };
+      >a {
+        display: inline-block;
+        color: @f-grey-2;
+        transition: color .3s ease-in-out 0s;
+        &:hover {
+          color: #ccc
+        }
+        i {
+          font-size: 20px;
+        };        
+      }
+    }
   }
 }

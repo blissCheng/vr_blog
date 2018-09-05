@@ -25,7 +25,7 @@ export default class Header extends React.Component<Props> {
               <li key={v.name}>
                 <Link to={v.to} className={styles.li}>
                   <i className={`iconfont icon-${v.icon}`}/>
-                  <span>{v.name}</span>
+                  <div>{v.name}</div>
                 </Link>
               </li>
             ))
