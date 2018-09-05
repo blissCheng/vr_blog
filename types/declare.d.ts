@@ -7,6 +7,7 @@ declare module '*.less' {
   export = content;
 }
 declare module '*.css'
+declare module 'jquery'
 
 
 interface PageData {

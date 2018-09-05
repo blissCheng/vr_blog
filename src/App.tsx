@@ -1,15 +1,28 @@
 import * as React from 'react';
-import Home from './pages/home';
-// import { Router, Route, Switch } from 'react-router-dom';
-// const { }
+import { Router, Route, Switch } from 'react-router-dom';
+import PageData from './pages';
+import history from './history';
 class App extends React.Component {
   componentDidMount() {
-   
+
   }
   public render() {
     return (
       <div style={{height: '100%'}}>
-        <Home/>
+        <Router history={history}>
+          <Switch>
+            {
+              PageData.map((v: PageData) => (
+                <Route
+                  exact
+                  path={v.path}
+                  key={v.name}
+                  component={v.component}
+                />
+              ))
+            }
+          </Switch>
+        </Router>
       </div>
     );
   }
