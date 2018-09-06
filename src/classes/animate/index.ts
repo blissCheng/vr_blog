@@ -5,10 +5,12 @@ export class AnimateFlow {
     const divs = $('.animate-flow');
     for (let i in divs) {
       if (Number(i).toString() !== 'NaN'){
-        divs.animate({
-          top: 0,
-          opacity: 1
-        }, ( i as any + 1 ) * 1000)
+        setTimeout(() => {
+          $(divs[i]).animate({
+            top: 0,
+            opacity: 1
+          }, 150, 'linear')
+        }, i as any * 300)
       }
     }
   }

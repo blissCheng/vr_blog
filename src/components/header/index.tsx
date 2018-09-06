@@ -16,10 +16,10 @@ export default class Header extends React.Component<Props> {
   }
   render() {
     return (
-      <div className={`${styles['site-meta']} animate-flow`}>
+      <div className={`${styles['site-meta']}`}>
         <div className={`${styles['site-title-logo']} animate-flow`}>bliss Cheng</div>
-        <p className={styles['site-subtitle']}>Life is now</p>
-        <ul className={styles.ul}>
+        <p className={`${styles['site-subtitle']} animate-flow`}>Life is now</p>
+        <ul className={`${styles.ul} animate-flow`}>
           {
             tags.map((v: Tag) => (
               <li key={v.name}>
