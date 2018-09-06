@@ -3,6 +3,8 @@ import * as styles from './index.less';
 import Header from '../../components/header';
 class Home extends React.Component{
   
+  componentDidMount() {
+  }
   render() {
     return (
       <div className={styles.wrapper}>
