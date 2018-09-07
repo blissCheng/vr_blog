@@ -1,5 +1,8 @@
 
 const config = {
+  //页面节点, 由MarkedCompile类编译执行补充完成
+  coPage: [],
+  //头部标签配置
   tags: [
     {
       icon: 'home',

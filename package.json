@@ -24,6 +24,7 @@
     "less": "^3.8.1",
     "less-loader": "^4.1.0",
     "less-watch-compiler": "^1.11.3",
+    "marked": "^0.5.0",
     "node-sass": "^4.9.2",
     "object-assign": "4.1.1",
     "postcss-flexbugs-fixes": "3.2.0",

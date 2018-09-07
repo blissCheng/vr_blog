@@ -8,6 +8,7 @@ declare module '*.less' {
 }
 declare module '*.css'
 declare module 'jquery'
+declare module 'marked'
 
 
 interface PageData {
