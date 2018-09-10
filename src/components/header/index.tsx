@@ -1,8 +1,7 @@
 import React from 'react';
-import config from '../../config';
 import { Link } from 'react-router-dom';
-import { animateFlow } from '../../classes';
-const { tags } = config;
+import { animateFlow, config } from '../../classes';
+const tags = config.getTags();
 const styles = require('./index.less');
 interface Props {
   active: string;

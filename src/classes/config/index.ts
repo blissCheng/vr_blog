@@ -1,9 +1,7 @@
 
-const config = {
-  //页面节点, 由MarkedCompile类编译执行补充完成
-  coPage: [],
-  //头部标签配置
-  tags: [
+export class Config {
+  private coPage: any[]
+  private tags: any[] = [
     {
       icon: 'home',
       name: 'Home',
@@ -35,5 +33,17 @@ const config = {
       to: ''
     }
   ]
-}
-export default config;
+  constructor() {
+  };
+
+  setVal = (name: string, val: any) => {
+    this[name] = val;
+  };
+  getTags = (): any => {
+    return this.tags;
+  };
+  getCoPage = (): any => {
+    return this.coPage;
+  }
+};
+export default new Config();
