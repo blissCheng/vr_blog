@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { animateFlow, config } from '../../classes';
-const tags = config.getTags();
+import { animateFlow } from '../../classes';
+import config from '../../config';
+const { tags } = config;
 const styles = require('./index.less');
 interface Props {
   active: string;
@@ -11,7 +12,7 @@ export default class Header extends React.Component<Props> {
     super(props);
   }
   componentDidMount() {
-    animateFlow.start();    
+    animateFlow.start();
   }
   render() {
     return (
