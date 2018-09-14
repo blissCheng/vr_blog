@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { animateFlow } from '../../classes';
 import config from '../../config';
 const { tags } = config;
+const results = require('../../results.json');
 const styles = require('./index.less');
 interface Props {
   active: string;
@@ -13,6 +14,7 @@ export default class Header extends React.Component<Props> {
   }
   componentDidMount() {
     animateFlow.start();
+    console.log(results);
   }
   render() {
     return (

@@ -7,6 +7,16 @@ const marked = require('marked');
 const path = require('path');
 const mdPath = path.join(__dirname, './marks');
 const jsonPath = path.join(__dirname, './results.json');
+
+//取p标签中的值
+const extractCenter = /<p.*?>\{([\s\S]*)\}<\/p>/;
+//取p标签之后的值
+const extractAfter = /\}<\/p>\n([\s\S]*)/;
+//取所有类型的标签里的内容
+const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
+//排除字符
+const removeStr = /\s+/g;
+
 class MarkedCompile {
   constructor() {
     this.buffs = [];
@@ -16,6 +26,35 @@ class MarkedCompile {
   readDirs(path, options) {
   
     this.files = fs.readdirSync(path, options);
+  }
+
+  //解析html字符串信息
+  analysisInfo(data) {
+    let text = data.match(extractCenter)[1].replace(removeStr, ""),
+        strs = text.split(';'),
+        attr = {};
+    console.log(text);
+    //提取标题及标签等信息
+    strs.map(v => {
+      if (v) {
+        let str = v.split(':');
+        attr[str[0]] = str[1];
+      }
+    });
+
+    //剔除首个p标签
+    attr.content = data.match(extractAfter)[1]
+
+    console.log(attr);
+    return {
+      ...attr,
+      ...{}
+    }
+  }
+
+  //提取n个左右字符
+  extract(src, n) {
+    
   }
   //遍历读取md文件内容
   async readContent() {
@@ -28,6 +67,7 @@ class MarkedCompile {
         encoding: 'utf8'
       });
       let data = marked(val);
+      this.analysisInfo(data);
       this.buffs.push(
         {
           name: v.split('.')[0].toUpperCase(),
