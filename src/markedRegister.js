@@ -72,7 +72,8 @@ class MarkedCompile {
       
       this.buffs.push(
         {
-          ...this.analysisInfo(data)
+          ...this.analysisInfo(data),
+          name: v.split('.')[0].toUpperCase()
         }
       )
     });
