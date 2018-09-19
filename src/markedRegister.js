@@ -17,6 +17,7 @@ const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
 //排除字符
 const removeStr = /\s+/g;
 
+
 class MarkedCompile {
   constructor() {
     this.buffs = [];
@@ -33,7 +34,6 @@ class MarkedCompile {
     let text = data.match(extractCenter)[1].replace(removeStr, ""),
         strs = text.split(';'),
         attr = {};
-    console.log(text);
     //提取标题及标签等信息
     strs.map(v => {
       if (v) {
@@ -43,18 +43,20 @@ class MarkedCompile {
     });
 
     //剔除首个p标签
-    attr.content = data.match(extractAfter)[1]
-
-    console.log(attr);
+    attr.content = data.match(extractAfter)[1];
+    
+    attr.introduce = this.extract(data, 200);
     return {
-      ...attr,
-      ...{}
+      ...attr
     }
   }
 
   //提取n个左右字符
   extract(src, n) {
-    
+    let replisome = src;
+    //删除所有标签
+    replisome = replisome.replace(/<.*?>/ig, "");
+    return replisome.slice(0, n);
   }
   //遍历读取md文件内容
   async readContent() {
@@ -67,11 +69,10 @@ class MarkedCompile {
         encoding: 'utf8'
       });
       let data = marked(val);
-      this.analysisInfo(data);
+      
       this.buffs.push(
         {
-          name: v.split('.')[0].toUpperCase(),
-          value: data
+          ...this.analysisInfo(data)
         }
       )
     });
