@@ -2,9 +2,17 @@ import * as React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import PageData from './pages';
 import history from './history';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import AppStore from './app.reducer';
+//import AppActions from './app.actions';
+
+
+const store = createStore(AppStore);
+
 class App extends React.Component {
   componentDidMount() {
-
+    
   }
   public render() {
     return (
@@ -13,12 +21,14 @@ class App extends React.Component {
           <Switch>
             {
               PageData.map((v: PageData) => (
+                <Provider store={store}>
                 <Route
                   exact
                   path={v.path}
                   key={v.name}
                   component={v.component}
                 />
+                </Provider>
               ))
             }
           </Switch>

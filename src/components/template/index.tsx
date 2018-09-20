@@ -1,6 +1,12 @@
 import React from 'react';
 
-class Template extends React.Component{
+interface Props {
+
+}
+class Template extends React.Component<Props>{
+  constructor(props: Props) {
+    super(props);
+  }
   
 }
 

@@ -4,6 +4,7 @@
 		"tag": "测试tag",
 		"time": "测试时间",
 		"content": "<h3 id=\"cd\">cd</h3>\n<p>cccasdasdsadasdsad</p>\n",
-		"introduce": "{\n  title: 测试title;\n  tag: 测试tag;\n  time: 测试时间;\n}\ncd\ncccasdasdsadasdsad\n"
+		"introduce": "{\n  title: 测试title;\n  tag: 测试tag;\n  time: 测试时间;\n}\ncd\ncccasdasdsadasdsad\n",
+		"name": "TEST"
 	}
 ]

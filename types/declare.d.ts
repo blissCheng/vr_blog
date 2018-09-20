@@ -9,6 +9,7 @@ declare module '*.less' {
 declare module '*.css'
 declare module 'jquery'
 declare module 'marked'
+declare module 'react-redux'
 
 
 interface PageData {
@@ -18,4 +19,11 @@ interface PageData {
 }
 interface Qs {
   [key: string]: any
+}
+interface ReducerIdentityFn {
+  <T>(state: T, action: any): T
+}
+
+interface Action {
+  text: string;
 }
