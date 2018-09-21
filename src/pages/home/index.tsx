@@ -1,18 +1,21 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+//import { bindActionCreators } from 'redux';
 import * as styles from './index.less';
 import Header from '../../components/header';
-import { AppReducer } from '../../app.reducer';
+import Actions from '../../app.actions';
 interface Props {
-  appStore: AppReducer;
+  dispatch: (creater: any) => void;
+  test: string;
 }
 class Home extends React.Component<Props>{
-  appStore: AppReducer;
   constructor(props: Props) {
     super(props);
-    this.appStore = props.appStore;
   }
+
   componentDidMount() {
-    console.log(this.props)
+    this.props.dispatch(Actions.test('cc'));
+    console.log(this);
   }
   render() {
     return (
@@ -22,5 +25,9 @@ class Home extends React.Component<Props>{
     )
   }
 }
-
-export default Home;
+// const mapDisatchToProps = (dispath: any) => {
+//   return {
+//     actions: bindActionCreators(Actions as any, dispath)
+//   }
+// }
+export default connect((state: any) => {return {test: state.setTest}})(Home);
