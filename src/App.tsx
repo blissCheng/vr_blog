@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
-import PageData from './pages';
+import routes from './routes';
 import history from './history';
 
 class App extends React.Component {
@@ -14,19 +14,12 @@ class App extends React.Component {
         <Router history={history}>
           <Switch>
             {
-              PageData.map((v: PageData) => (
+              routes.map((v: PageData) => (
                   <Route
                     exact
                     path={v.path}
                     key={v.name}
-                    render={(props) => {
-                      const C = v.component;
-                      console.log(props)
-                      return (
-                        <C {...props}/>
-                      )
-                    }}
-                    //component={v.component}
+                    component={v.component}
                   />
               ))
             }

@@ -25,7 +25,7 @@ function dynamicLoad(importComponent: any) {
 
   return DynamicLoad;
 }
-const PageData: PageData[] = [
+const Routes: PageData[] = [
   {
     path: '/vr/home',
     name: 'home',
@@ -33,4 +33,4 @@ const PageData: PageData[] = [
   }
 ];
 
-export default PageData;
+export default Routes;

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 //import { bindActionCreators } from 'redux';
 import * as styles from './index.less';
 import Header from '../../components/header';
-import Actions from '../../app.actions';
+import HomeContent from '../../components/homeContent';
+const results = require('../../results.json');
 interface Props {
   dispatch: (creater: any) => void;
   test: string;
@@ -14,13 +15,19 @@ class Home extends React.Component<Props>{
   }
 
   componentDidMount() {
-    this.props.dispatch(Actions.test('cc'));
-    console.log(this);
+    
   }
   render() {
     return (
       <div className={styles.wrapper}>
         <Header active='tag'/>
+        <section>
+          {
+            results.map((v: CompilerResult) => (
+              <HomeContent dataSrc={v} key={v.name}/>
+            ))
+          }
+        </section>
       </div>
     )
   }

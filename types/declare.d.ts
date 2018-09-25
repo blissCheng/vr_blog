@@ -27,3 +27,12 @@ interface ReducerIdentityFn {
 interface Action {
   text: string;
 }
+
+interface CompilerResult {
+  title: string;
+  tag: string;
+  time: string;
+  content: string;
+  introduce: string;
+  name: string;
+}
