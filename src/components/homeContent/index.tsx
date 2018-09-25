@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from './index.less';
 interface Props {
   dataSrc: CompilerResult
 }
@@ -12,10 +13,10 @@ class HomeContent extends React.Component<Props>{
   render() {
     const { dataSrc } = this.props;
     return (
-      <article>
+      <article className={`animate-flow`}>
         <header>
           <h1>
-            <a>{dataSrc.title}</a>
+            <a className={styles['artical-header-title']}>{dataSrc.title}</a>
           </h1>
           <div>
             <span>Posted on{dataSrc.time}</span>
