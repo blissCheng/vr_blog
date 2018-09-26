@@ -21,7 +21,9 @@ class Home extends React.Component<Props>{
     return (
       <div className={styles.wrapper}>
         <Header active='tag'/>
-        <section>
+        <section style={{
+          paddingTop: '40px'
+        }}>
           {
             results.map((v: CompilerResult) => (
               <HomeContent dataSrc={v} key={v.name}/>

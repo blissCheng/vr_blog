@@ -10,7 +10,10 @@ class App extends React.Component {
   public render() {
     return (
       <div style={{height: '100%'}}>
-
+        <div style={{
+          height: '3px',
+          background: '#222'
+        }}></div>
         <Router history={history}>
           <Switch>
             {

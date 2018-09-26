@@ -10,19 +10,42 @@ class HomeContent extends React.Component<Props>{
   componentDidMount() {
     console.log(this.props)
   }
+
   render() {
     const { dataSrc } = this.props;
     return (
-      <article className={`animate-flow`}>
-        <header>
+      <article className={`animate-flow ${styles.articale}`}>
+        <header className={styles['articale-header']}>
           <h1>
-            <a className={styles['artical-header-title']}>{dataSrc.title}</a>
+            <a className={styles['articale-header-title']}>{dataSrc.title}</a>
           </h1>
-          <div>
-            <span>Posted on{dataSrc.time}</span>
+          <div className={styles['title-meta']}>
+            <span>Posted on <time>{dataSrc.time}</time></span>
             <span>&nbsp; | &nbsp; In <a>{dataSrc.tag}</a></span>
           </div>
         </header>
+        <div className={styles['articale-body']}>
+          <div>
+            {
+              dataSrc.introduce.split('\n').map((v: string, index: number) => {
+                return (
+                  <span>
+                    {v}
+                    {
+                      index !== dataSrc.introduce.split('\n').length ? <br/> : null
+                    }
+                  </span>
+                )
+              })
+            }
+          </div>
+          <div className={styles.readmore}>
+            <a>Readmore »</a>
+          </div>
+        </div>
+        <footer>
+          <div className={styles['articale-footer']}></div>
+        </footer>
       </article>
     )
   }

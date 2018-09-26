@@ -54,8 +54,29 @@ class MarkedCompile {
   //提取n个左右字符
   extract(src, n) {
     let replisome = src;
+    //剔除文章配置项
+    let strs = replisome.split('}'),
+        dc = '';
+    strs.map((v, index) => {
+      if (index > 0) {
+        dc += v
+      }
+    });
     //删除所有标签
-    replisome = replisome.replace(/<.*?>/ig, "");
+    dc = dc.replace(/<.*?>/ig, "");
+    //删除首尾\n字符
+    let m = 0;
+    for (let i = 0; i < dc.length; i++) {
+      if (dc[i] && dc[i] != '\n') {
+        m = i;
+        break;
+      }
+    }
+    dc = dc.substr(m);
+    if (dc[dc.length - 1] == '\n') {
+      dc = dc.substr(0, dc.length - 2)
+    }
+    replisome = dc;
     return replisome.slice(0, n);
   }
   //遍历读取md文件内容
