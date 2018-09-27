@@ -3,7 +3,7 @@ const config = {
     {
       icon: 'home',
       name: 'Home',
-      to: ''
+      to: '/vr/home'
     },
     {
       icon: 'gongnengguanli',

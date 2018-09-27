@@ -1,14 +1,16 @@
 import React from 'react';
 import styles from './index.less';
+import { Link } from 'react-router-dom';
 interface Props {
-  dataSrc: CompilerResult
+  dataSrc: CompilerResult;
+  index: number
 }
 class HomeContent extends React.Component<Props>{
   constructor(props: Props) {
     super(props);
   }
   componentDidMount() {
-    console.log(this.props)
+    
   }
 
   render() {
@@ -17,7 +19,10 @@ class HomeContent extends React.Component<Props>{
       <article className={`animate-flow ${styles.articale}`}>
         <header className={styles['articale-header']}>
           <h1>
-            <a className={styles['articale-header-title']}>{dataSrc.title}</a>
+            <Link 
+              to={`/vr/article/detail/${this.props.index}`}
+              className={styles['articale-header-title']}
+            >{dataSrc.title}</Link>
           </h1>
           <div className={styles['title-meta']}>
             <span>Posted on <time>{dataSrc.time}</time></span>
@@ -40,7 +45,9 @@ class HomeContent extends React.Component<Props>{
             }
           </div>
           <div className={styles.readmore}>
-            <a>Readmore »</a>
+            <Link 
+              to={`/vr/article/detail/${this.props.index}`}
+            >Readmore »</Link>
           </div>
         </div>
         <footer>

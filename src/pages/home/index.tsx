@@ -25,8 +25,8 @@ class Home extends React.Component<Props>{
           paddingTop: '40px'
         }}>
           {
-            results.map((v: CompilerResult) => (
-              <HomeContent dataSrc={v} key={v.name}/>
+            results.map((v: CompilerResult, index: number) => (
+              <HomeContent dataSrc={v} key={v.name} index={index}/>
             ))
           }
         </section>
