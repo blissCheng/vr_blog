@@ -34,7 +34,7 @@ class HomeContent extends React.Component<Props>{
             {
               dataSrc.introduce.split('\n').map((v: string, index: number) => {
                 return (
-                  <span>
+                  <span key={index}>
                     {v}
                     {
                       index !== dataSrc.introduce.split('\n').length ? <br/> : null

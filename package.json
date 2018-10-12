@@ -68,6 +68,7 @@
     "start": "npm run marked && node scripts/start.js",
     "build": "npm run marked && node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
+    "deploy": "npm run build && rsync -azP --delete-after build/* root@192.168.100.154:/root/www/vr_blog",
     "marked": "npm run touchEs && babel-node src/markedRegister.js && npm run touchReactApp",
     "touchEs": "node babelConfigTransform.js -b",
     "touchReactApp": "node babelConfigTransform.js"
