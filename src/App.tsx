@@ -17,7 +17,7 @@ class App extends React.Component {
         <Router history={history}>
           <Switch>
             {
-              routes.map((v: PageData) => (
+              routes.map((v: RouteData) => (
                   <Route
                     exact
                     path={v.path}

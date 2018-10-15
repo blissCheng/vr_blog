@@ -12,7 +12,7 @@ declare module 'marked'
 declare module 'react-redux'
 
 
-interface PageData {
+interface RouteData {
   path: string;
   component: any;
   name: string;

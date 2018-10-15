@@ -20,7 +20,7 @@ class Home extends React.Component<Props>{
   render() {
     return (
       <div className={styles.wrapper}>
-        <Header active='tag'/>
+        <Header/>
         <section style={{
           paddingTop: '40px'
         }}>
