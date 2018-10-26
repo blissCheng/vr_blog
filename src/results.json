@@ -3,8 +3,8 @@
 		"title": "测试title",
 		"tag": "测试tag",
 		"time": "测试时间",
-		"content": "<h3 id=\"cd\">cd</h3>\n<p>cccasdasdsadasdsad</p>\n",
-		"introduce": "cd\ncccasdasdsadasdsa",
+		"content": "<p>cccasdasdsadasdsad</p>\n",
+		"introduce": "cccasdasdsadasdsa",
 		"name": "TEST"
 	}
 ]
