@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Router, Route, Switch } from 'react-router-dom';
 import routes from './routes';
 import history from './history';
+import Suspend from './components/suspend';
 
 class App extends React.Component {
   componentDidMount() {
@@ -10,10 +11,7 @@ class App extends React.Component {
   public render() {
     return (
       <div style={{height: '100%'}}>
-        <div style={{
-          height: '3px',
-          background: '#222'
-        }}></div>
+        <div style={{height: '3px',background: '#222'}}id="topAnchor"></div>
         <Router history={history}>
           <Switch>
             {
@@ -28,6 +26,8 @@ class App extends React.Component {
             }
           </Switch>
         </Router>
+
+        <Suspend/>
       </div>
     );
   }

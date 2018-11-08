@@ -10,6 +10,7 @@ declare module '*.css'
 declare module 'jquery'
 declare module 'marked'
 declare module 'react-redux'
+declare module 'bootstrap'
 
 
 interface RouteData {

@@ -1,0 +1,36 @@
+@import '../../asset/styles/color.less';
+
+.suspend {
+  position: fixed;
+  right: 50px;
+  bottom: 20px;
+  .sidebar-toggle, .back-to-top {
+    display: flex;
+    background: @f-grey-3;
+    width: 15px;
+    height: 15px;
+    padding: 5px;
+    align-items: center;
+    justify-content: center
+  }
+  .sidebar-toggle {
+    margin-bottom: 10px;
+    .line-wrap {
+      line-height: 0;
+      .line-first{
+        background: #fff
+      }
+      .line {
+        position: relative;
+        vertical-align: top;
+        display: inline-block;
+        width: 15px;
+        height: 2px;
+        background: #fff;
+      }
+      .line-middle, .line-last {
+        margin-top: 3px;
+      }
+    }
+  }
+}

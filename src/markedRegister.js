@@ -14,6 +14,7 @@ const extractCenter = /<p.*?>\{([\s\S]*)\}<\/p>/;
 const extractAfter = /\}<\/p>\n([\s\S]*)/;
 //取所有类型的标签里的内容
 const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
+
 //排除字符
 const removeStr = /\s+/g;
 
@@ -77,6 +78,7 @@ class MarkedCompile {
       dc = dc.substr(0, dc.length - 2)
     }
     replisome = dc;
+    
     return replisome.slice(0, n);
   }
   //遍历读取md文件内容

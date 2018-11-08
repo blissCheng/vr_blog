@@ -15,8 +15,8 @@ class Home extends React.Component<Props>{
   }
 
   componentDidMount() {
-    
   }
+
   render() {
     return (
       <div className={styles.wrapper}>
