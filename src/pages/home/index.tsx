@@ -15,6 +15,7 @@ class Home extends React.Component<Props>{
   }
 
   componentDidMount() {
+    
   }
 
   render() {

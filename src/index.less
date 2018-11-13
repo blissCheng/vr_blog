@@ -35,4 +35,31 @@
       margin-bottom: 25px;
     }
   }
+
+  .sidebar-toggle-line-rotate-first {
+    position: absolute;
+    width: 8px !important;
+    transform: rotate(-45deg);
+    left: -1px;
+    transition: all .4s ease-in-out;
+  }
+  .sidebar-toggle-line-rotate-last {
+    position: absolute;
+    width: 8px !important;
+    transform: rotate(45deg);
+    top: 3px;
+    left: 0;
+    transition: all .4s ease-in-out;
+  }
+
+  .sidebar-toggle-line-close-first {
+    position: absolute;
+    transform: rotate(-45deg);
+    top: 3px;
+    transition: all .4s ease-in-out;
+  }
+  .sidebar-toggle-line-close-last {
+    transform: rotate(45deg);
+    transition: all .4s ease-in-out;
+  }
 }
