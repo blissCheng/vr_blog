@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { animateFlow } from '../../classes';
-import config from '../../config';
+import config from '../../config/default';
 const { tags } = config;
 const styles = require('./index.less');
 interface Props {
