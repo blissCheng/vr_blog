@@ -5,7 +5,7 @@ import './index.less';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import AppStore from './app.reducer';
+import AppStore from './redux/index.reducer';
 //import AppActions from './app.actions';
 
 

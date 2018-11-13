@@ -10,7 +10,7 @@ interface State {
   isClose: Boolean;
 }
 export default class Suspend extends React.Component<Props> {
-  state: State;
+  public state: State;
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -62,7 +62,7 @@ export default class Suspend extends React.Component<Props> {
     }
   }
   toggleClick() {
-    if (this.state.isArrow) {
+    if (!this.state.isClose) {
       this.toggleLeave();
       $('#line-first').addClass('sidebar-toggle-line-close-first');
       $('#line-last').addClass('sidebar-toggle-line-close-last');
@@ -72,7 +72,6 @@ export default class Suspend extends React.Component<Props> {
         isClose: true
       });
     } else if (this.state.isClose) {
-      this.toggleHover();
       $('#line-first').removeClass('sidebar-toggle-line-close-first');
       $('#line-last').removeClass('sidebar-toggle-line-close-last');
       $('#line-middle').css({'display': 'inline-block'});
