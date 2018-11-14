@@ -1,15 +1,18 @@
 import React from 'react';
+import { Dispatch } from 'redux';
+import { connect } from 'react-redux';
+import AppAction from '../../app.action';
 import $ from 'jquery';
 const styles = require('./index.less');
 interface Props {
-  
+  dispatch: Dispatch
 }
 interface State {
   timer: any;
   isArrow: Boolean;
   isClose: Boolean;
 }
-export default class Suspend extends React.Component<Props> {
+class Suspend extends React.Component<Props> {
   public state: State;
   constructor(props: Props) {
     super(props);
@@ -62,6 +65,8 @@ export default class Suspend extends React.Component<Props> {
     }
   }
   toggleClick() {
+    const { setVisible } = AppAction;
+    const { dispatch } = this.props;
     if (!this.state.isClose) {
       this.toggleLeave();
       $('#line-first').addClass('sidebar-toggle-line-close-first');
@@ -71,6 +76,7 @@ export default class Suspend extends React.Component<Props> {
         isArrow: false,
         isClose: true
       });
+      dispatch(setVisible(true));
     } else if (this.state.isClose) {
       $('#line-first').removeClass('sidebar-toggle-line-close-first');
       $('#line-last').removeClass('sidebar-toggle-line-close-last');
@@ -78,6 +84,7 @@ export default class Suspend extends React.Component<Props> {
       this.setState({
         isClose: false
       });
+      dispatch(setVisible(false));
     }
   }
   render() {
@@ -86,13 +93,14 @@ export default class Suspend extends React.Component<Props> {
         <div 
           className={styles['sidebar-toggle']} 
           id='sidebar-toggle'
-          onMouseOver={() => {
+          onMouseMove={() => {
             this.toggleHover();
           }}
           onMouseLeave={() => {
             this.toggleLeave();
           }}
-          onClick={() => {
+          onClick={(e) => {
+            e.stopPropagation();
             this.toggleClick();
           }}
         >
@@ -114,3 +122,9 @@ export default class Suspend extends React.Component<Props> {
     )
   }
 }
+
+export default connect((state: Qs) => {
+  return {
+    appStore: state.appStore
+  }
+})(Suspend);

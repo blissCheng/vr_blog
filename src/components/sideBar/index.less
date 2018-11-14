@@ -1,5 +1,43 @@
 @import '../../asset/styles/color.less';
-
 .sidebar {
+  width: 0px;
+  background: @f-grey-3;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  box-shadow: inset 0 2px 6px #000;
+  transition: width .5s ease;
+  .sidebar-inner {
+    padding: 20px 10px;
+    color: @f-grey-1;
+    .section {
+      width: 300px;
+      .header {
+        text-align: center;
+        img {
+          width: 96px;
+          height: 96px;
+          padding: 2px;
+          border: 2px solid @f-grey-3;
+          opacity: 0;
+        }
+        p {
+          color: @f-grey-4;
+          margin-top: 5px;
+          font-size: 17px;
+        }
+      }
+      .motto {
+        font-size: 14px;
+        color: @f-grey-2;
+        width: 300px;
+        margin: 15px auto;
+        text-align: center;
+      }
+    }
+  }
+}
+.sidebar-showing {
   width: 320px;
 }

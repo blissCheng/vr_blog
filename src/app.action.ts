@@ -1,4 +1,4 @@
-class IndexAction{
+class AppAction{
 
   setVisible = (visible: boolean) => {
     return {
@@ -8,4 +8,4 @@ class IndexAction{
   }
 }
 
-export default new IndexAction();
+export default new AppAction();

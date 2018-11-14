@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { animateFlow } from '../../classes';
 import config from '../../config/default';
-const { tags } = config;
+const { tags, userModel } = config;
 const styles = require('./index.less');
 interface Props {
   
@@ -17,8 +17,8 @@ export default class Header extends React.Component<Props> {
   render() {
     return (
       <div className={`${styles['site-meta']}`}>
-        <div className={`${styles['site-title-logo']} animate-flow`}>bliss Cheng</div>
-        <p className={`${styles['site-subtitle']} animate-flow`}>Life is now</p>
+        <div className={`${styles['site-title-logo']} animate-flow`}>{userModel.name}</div>
+        <p className={`${styles['site-subtitle']} animate-flow`}>{userModel.motto}</p>
         <ul className={`${styles.ul} animate-flow`}>
           {
             tags.map((v: Tag) => (

@@ -1,4 +1,14 @@
 const config = {
+  userModel: {
+    name: 'Xs Cheng',
+    motto: 'Life is Now.',
+    avator: 'hj.png',
+    links: {
+      github: 'https://github.com/blissCheng',
+      zhihu: 'https://www.zhihu.com/',
+      weibo: 'https://www.baidu.com'
+    } 
+  },
   tags: [
     {
       icon: 'home',
