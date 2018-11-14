@@ -4,7 +4,7 @@ import $ from 'jquery';
 import styles from './index.less';
 import { animateFlow } from '../../classes';
 import Header from '../../components/header';
-const articles = require('../../results.json');
+const articles = require('../../compileResults/results.json');
 
 interface State {
   articleIndex: number, //文章索引\

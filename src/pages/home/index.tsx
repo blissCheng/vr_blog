@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import * as styles from './index.less';
 import Header from '../../components/header';
 import HomeContent from '../../components/homeContent';
-const results = require('../../results.json');
+const results = require('../../compileResults/results.json');
 interface Props {
   dispatch: (creater: any) => void;
   test: string;

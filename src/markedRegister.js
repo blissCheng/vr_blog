@@ -6,7 +6,7 @@ const fs = require('fs');
 const marked = require('marked');
 const path = require('path');
 const mdPath = path.join(__dirname, './marks');
-const jsonPath = path.join(__dirname, './results.json');
+const jsonPath = path.join(__dirname, './compileResults');
 
 //取p标签中的值
 const extractCenter = /<p.*?>\{([\s\S]*)\}<\/p>/;
@@ -23,6 +23,8 @@ class MarkedCompile {
   constructor() {
     this.buffs = [];
     this.files = [];
+    this.tag = {};
+    this.categorie = {};
   }
   //读取文件夹下所有md文件
   readDirs(path, options) {
@@ -50,6 +52,25 @@ class MarkedCompile {
     return {
       ...attr
     }
+  }
+
+  //按类别分类
+  divideInCategorie(obj) {
+    if (!this.categorie[obj.categorie]) {
+      this.categorie[obj.categorie] = [];
+    }
+    this.categorie[obj.categorie].push(obj);
+  }
+  //按标签分类
+  divideInTag(obj) {
+    let tags = obj.tag.split(',');
+
+    tags.forEach((v) => {
+      if (!this.tag[v]) {
+        this.tag[v] = [];
+      }
+      this.tag[v].push(obj);
+    })
   }
 
   //提取n个左右字符
@@ -92,27 +113,47 @@ class MarkedCompile {
         encoding: 'utf8'
       });
       let data = marked(val);
-      
+      let compiled = this.analysisInfo(data);
+      //进入result数据流
       this.buffs.push(
         {
-          ...this.analysisInfo(data),
+          ...compiled,
           name: v.split('.')[0].toUpperCase()
         }
       )
+      //进入categorie数据流
+      this.divideInCategorie(compiled);
+      //进入tag数据流
+      this.divideInTag(compiled);
     });
   }
   async writeStreamToJson() {
     await this.readContent();
 
-    const data = JSON.stringify(this.buffs, null, '\t');
+    const results = JSON.stringify(this.buffs, null, '\t');
+    const tags = JSON.stringify(this.tag, null, '\t');
+    const categories = JSON.stringify(this.categorie, null, '\t');
 
-    fs.writeFile(jsonPath, data, 'utf8', (err) => {
+    fs.writeFile(`${jsonPath}/results.json`, results, 'utf8', (err) => {
       if (err) {
         console.log(err);
       }
+      console.log('全部结果写入成功-----------')
+    });
 
-      console.log('md编译结果写入成功-----------')
-    })
+    fs.writeFile(`${jsonPath}/tags.json`, tags, 'utf8', (err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log('tag结果写入成功-----------')
+    });
+
+    fs.writeFile(`${jsonPath}/categories.json`, categories, 'utf8', (err) => {
+      if (err) {
+        console.log(err);
+      }
+      console.log('categories结果写入成功-----------')
+    });
   }
   start() {
     this.writeStreamToJson()
