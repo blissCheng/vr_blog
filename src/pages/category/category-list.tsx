@@ -5,7 +5,7 @@ import { withRouter, RouteComponentProps } from 'react-router-dom';
 const categories = require('../../compileResults/categories.json');
 const styles = require('./index.less');
 
-class Categories extends React.Component<RouteComponentProps> {
+class CategoryList extends React.Component<RouteComponentProps> {
 
   goDetail(v: string) {
     const { history } = this.props;
@@ -21,7 +21,7 @@ class Categories extends React.Component<RouteComponentProps> {
     const keys = Object.keys(categories);
 
     return (
-      <div className={styles['categories-list']}>
+      <div className={styles['category-list']}>
         <Header/>
         <section className={styles.section}>
           <header className={'animate-flow'}>{ keys.length } categories in total</header>
@@ -44,4 +44,4 @@ class Categories extends React.Component<RouteComponentProps> {
   }
 }
 
-export default withRouter(Categories as any);
+export default withRouter(CategoryList as any);

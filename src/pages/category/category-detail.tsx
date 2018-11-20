@@ -5,7 +5,7 @@ import Header from '../../components/header';
 const categories = require('../../compileResults/categories.json');
 const styles = require('./index.less');
 
-class CategoriesDetail extends React.Component<RouteComponentProps> {
+class CategoryDetail extends React.Component<RouteComponentProps> {
   src: CompilerResult[];
   constructor(props: RouteComponentProps){
     super(props);
@@ -15,8 +15,8 @@ class CategoriesDetail extends React.Component<RouteComponentProps> {
     return (
       <div>
         <Header/>
-        <div className={styles['categories-detail']}>
-          <header className={'animate-flow'}>{ this.props.location.state.name } Category</header>
+        <div className={styles['category-detail']}>
+          <header className={'animate-flow'}>{ this.props.location.state.name } <span style={{fontSize: '17px'}}>Category</span></header>
           <ul>
             {
               this.src.map((v: CompilerResult) => (
@@ -30,4 +30,4 @@ class CategoriesDetail extends React.Component<RouteComponentProps> {
   }
 }
 
-export default withRouter(CategoriesDetail as any);
+export default withRouter(CategoryDetail as any);

@@ -28,7 +28,7 @@ const config = {
     {
       icon: 'tags',
       name: 'Tags',
-      to: ''
+      to: '/vr/tags'
     },
     {
       icon: 'ren',

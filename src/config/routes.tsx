@@ -39,7 +39,12 @@ const Routes: RouteData[] = [
   {
     path: '/vr/categories',
     name: 'categories',
-    component: dynamicLoad(() => import('../pages/categories'))
+    component: dynamicLoad(() => import('../pages/category'))
+  },
+  {
+    path: '/vr/tags',
+    name: 'tags',
+    component: dynamicLoad(() => import('../pages/tag'))
   }
 ];
 
