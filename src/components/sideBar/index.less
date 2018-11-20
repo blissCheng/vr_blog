@@ -36,9 +36,29 @@
         text-align: center;
       }
       nav {
+        text-align: center;
+        margin: 15px 0;
         .nav-item {
           display: inline-block;
-          width: 100px;
+          padding: 0 15px;
+          text-align: center;
+          transition: color .2s ease-in-out;
+          &:hover {
+            color: #fff;
+          }
+          &:nth-child(2) {
+            border-left: 1px solid @f-grey-5;
+            border-right: 1px solid @f-grey-5;
+          }
+          div {
+            &:first-child {
+              font-size: 18px;
+              margin-bottom: 5px;
+            }
+            &:nth-child(2) {
+              font-size: 13px;
+            }
+          }
         }
       }
     }

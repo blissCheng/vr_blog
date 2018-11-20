@@ -29,7 +29,6 @@ class App extends React.Component<Props> {
               {
                 routes.map((v: RouteData) => (
                   <Route
-                    exact
                     path={v.path}
                     key={v.name}
                     component={v.component}

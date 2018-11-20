@@ -3,7 +3,6 @@ import styles from './index.less';
 import { Link } from 'react-router-dom';
 interface Props {
   dataSrc: CompilerResult;
-  index: number
 }
 class HomeContent extends React.Component<Props>{
   constructor(props: Props) {
@@ -20,7 +19,7 @@ class HomeContent extends React.Component<Props>{
         <header className={styles['articale-header']}>
           <h1>
             <Link 
-              to={`/vr/article/detail/${this.props.index}`}
+              to={`/vr/article/detail/${this.props.dataSrc.index}`}
               className={styles['articale-header-title']}
             >{dataSrc.title}</Link>
           </h1>
@@ -46,7 +45,7 @@ class HomeContent extends React.Component<Props>{
           </div>
           <div className={styles.readmore}>
             <Link 
-              to={`/vr/article/detail/${this.props.index}`}
+              to={`/vr/article/detail/${this.props.dataSrc.index}`}
             >Readmore »</Link>
           </div>
         </div>

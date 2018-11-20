@@ -18,7 +18,7 @@ const config = {
     {
       icon: 'gongnengguanli',
       name: 'Categories',
-      to: ''
+      to: '/vr/categories'
     },
     {
       icon: 'shijianzhou',

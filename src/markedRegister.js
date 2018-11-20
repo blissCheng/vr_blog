@@ -107,13 +107,14 @@ class MarkedCompile {
     await this.readDirs(mdPath, {
       encoding: 'utf-8'
     });
-    this.files.forEach((v) => {
+    this.files.forEach((v, index) => {
       //将所有文件流存入数组
       let val = fs.readFileSync(`${mdPath}/${v}`, {
         encoding: 'utf8'
       });
       let data = marked(val);
       let compiled = this.analysisInfo(data);
+      compiled.index = index; //添加索引
       //进入result数据流
       this.buffs.push(
         {

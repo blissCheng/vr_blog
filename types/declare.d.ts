@@ -36,4 +36,5 @@ interface CompilerResult {
   content: string;
   introduce: string;
   name: string;
+  index: number;
 }
