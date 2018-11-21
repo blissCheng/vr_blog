@@ -23,7 +23,7 @@ const config = {
     {
       icon: 'shijianzhou',
       name: 'Archives',
-      to: ''
+      to: '/vr/archives'
     },
     {
       icon: 'tags',

@@ -48,6 +48,17 @@ class SideBar extends React.Component<Props> {
                 <div>tags</div>
               </span>
             </nav>
+            
+            <div className={styles['link']}>
+              {
+                Object.keys(userModel.links).map((v: any) => (
+                  <a href={userModel.links[v]} key={v}>
+                    <i className={`iconfont icon-diqiu`}/>
+                    {v}
+                  </a>
+                ))
+              }
+            </div>
           </section>
         </div>
       </aside>

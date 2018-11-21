@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
 import Header from '../../components/header';
 
 const tags = require('../../compileResults/tags.json');
@@ -20,7 +20,11 @@ class TagDetail extends React.Component<RouteComponentProps> {
           <ul>
             {
               this.src.map((v: CompilerResult) => (
-                <li className={'animate-flow'}>{`${v.time} ${v.title}`}</li>
+                <li key={v.index} className={'animate-flow'}>
+                  <Link to={`/vr/article/detail/${v.index}`}>
+                    {`${v.time} ${v.title}`}
+                  </Link>
+                </li>
               ))
             }
           </ul>
