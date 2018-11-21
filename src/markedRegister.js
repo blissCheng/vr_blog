@@ -3,6 +3,7 @@
  * */
 require('babel-polyfill');
 const fs = require('fs');
+const http = require('http');
 const marked = require('marked');
 const path = require('path');
 const mdPath = path.join(__dirname, './marks');
@@ -18,13 +19,33 @@ const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
 //排除字符
 const removeStr = /\s+/g;
 
+const getPostsOptions = {
+  hostname: '127.0.0.1',
+  port: 9000,
+  path: '/system/posts',
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
+  }
+};
+
+const insertPostsOptions = {
+  hostname: '127.0.0.1',
+  port: 9000,
+  path: '/system/posts/insert',
+  method: 'POST',
+  headers: {
+    "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
+  }
+}
+
 
 class MarkedCompile {
   constructor() {
     this.buffs = [];
     this.files = [];
-    this.tag = {};
-    this.categorie = {};
   }
   //读取文件夹下所有md文件
   readDirs(path, options) {
@@ -32,6 +53,7 @@ class MarkedCompile {
     this.files = fs.readdirSync(path, options);
   }
 
+  //
   //解析html字符串信息
   analysisInfo(data) {
     let text = data.match(extractCenter)[1].replace(removeStr, ""),
@@ -52,25 +74,6 @@ class MarkedCompile {
     return {
       ...attr
     }
-  }
-
-  //按类别分类
-  divideInCategorie(obj) {
-    if (!this.categorie[obj.categorie]) {
-      this.categorie[obj.categorie] = [];
-    }
-    this.categorie[obj.categorie].push(obj);
-  }
-  //按标签分类
-  divideInTag(obj) {
-    let tags = obj.tag.split(',');
-
-    tags.forEach((v) => {
-      if (!this.tag[v]) {
-        this.tag[v] = [];
-      }
-      this.tag[v].push(obj);
-    })
   }
 
   //提取n个左右字符
@@ -107,14 +110,13 @@ class MarkedCompile {
     await this.readDirs(mdPath, {
       encoding: 'utf-8'
     });
-    this.files.forEach((v, index) => {
+    this.files.forEach((v) => {
       //将所有文件流存入数组
       let val = fs.readFileSync(`${mdPath}/${v}`, {
         encoding: 'utf8'
       });
       let data = marked(val);
       let compiled = this.analysisInfo(data);
-      compiled.index = index; //添加索引
       //进入result数据流
       this.buffs.push(
         {
@@ -122,42 +124,73 @@ class MarkedCompile {
           name: v.split('.')[0].toUpperCase()
         }
       )
-      //进入categorie数据流
-      this.divideInCategorie(compiled);
-      //进入tag数据流
-      this.divideInTag(compiled);
     });
   }
-  async writeStreamToJson() {
+
+  //查询全部文章
+  getPosts() {
+    const req = http.request(getPostsOptions, (res) => {
+      console.log(`start get posts:  code ${res.statusCode}`);
+
+      let data = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        data += chunk;
+      })
+      res.on('end', () => {
+        console.log('get posts success!!');
+        try {
+          let results = JSON.parse(data).data;
+          let names = [];
+          
+          //存储所有标题
+          results.length > 0 && results.forEach((v) => {
+            names.push(v.name);
+          });
+  
+          this.buffs.forEach((v) => {
+            //如果是新增文章，添加
+            if(names.indexOf(v.name) < 0) {
+              this.insertPost(v);
+            }
+          })
+        } catch(e) {
+          console.log(e);
+          throw new Error(e);
+        }   
+      });
+
+      res.on('error', (e) => {
+        throw new Error(e);
+      })
+    });
+    req.end();
+  }
+
+  //新增文章
+  insertPost(insert) {
+    const req = http.request(insertPostsOptions, (res) => {
+      console.log(`start insert posts:  code ${res.statusCode}`);
+      let data = '';
+      res.setEncoding('utf8');
+      res.on('data', (chunk) => {
+        data += chunk;
+      })
+      res.on('end', () => {
+        console.log(`新增文章 ${ insert.title } 成功`);
+      });
+
+      res.on('error', (e) => {
+        console.log(e);
+        throw new Error(e);
+      })
+    });
+    req.write(JSON.stringify(insert))
+    req.end();
+  }
+  async start() {
     await this.readContent();
-
-    const results = JSON.stringify(this.buffs, null, '\t');
-    const tags = JSON.stringify(this.tag, null, '\t');
-    const categories = JSON.stringify(this.categorie, null, '\t');
-
-    fs.writeFile(`${jsonPath}/results.json`, results, 'utf8', (err) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log('全部结果写入成功-----------')
-    });
-
-    fs.writeFile(`${jsonPath}/tags.json`, tags, 'utf8', (err) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log('tag结果写入成功-----------')
-    });
-
-    fs.writeFile(`${jsonPath}/categories.json`, categories, 'utf8', (err) => {
-      if (err) {
-        console.log(err);
-      }
-      console.log('categories结果写入成功-----------')
-    });
-  }
-  start() {
-    this.writeStreamToJson()
+    this.getPosts();
   }
 }
 const lig = new MarkedCompile();
