@@ -10,7 +10,7 @@ export class AnimateFlow {
             top: 0,
             opacity: 1
           }, 150, 'linear')
-        }, i as any * 250)
+        }, i as any * 150)
       }
     }
   }
