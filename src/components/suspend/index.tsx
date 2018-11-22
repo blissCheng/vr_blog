@@ -1,19 +1,26 @@
 import React from 'react';
 import { Dispatch } from 'redux';
 import { connect } from 'react-redux';
-import AppAction from '../../app.action';
 import $ from 'jquery';
+
+import AppAction from '../../app.action';
+
 const styles = require('./index.less');
+
 interface Props {
   dispatch: Dispatch
 }
+
 interface State {
   timer: any;
   isArrow: Boolean;
   isClose: Boolean;
 }
+
 class Suspend extends React.Component<Props> {
+
   public state: State;
+
   constructor(props: Props) {
     super(props);
     this.state = {
@@ -21,9 +28,6 @@ class Suspend extends React.Component<Props> {
       isArrow: false,
       isClose: false
     }
-  }
-  componentDidMount() {
-    
   }
 
   backToTop() {

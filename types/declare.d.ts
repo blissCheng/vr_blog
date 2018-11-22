@@ -36,5 +36,12 @@ interface CompilerResult {
   content: string;
   introduce: string;
   name: string;
-  index: number;
+  pv: number;
+  id: number;
+  moment: string;
+  comments: number;
+  category: string;
+}
+interface DividePost {
+  [key: string]: CompilerResult[]
 }

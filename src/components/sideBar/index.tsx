@@ -1,29 +1,92 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-// import { AppActions } from '../../redux/index.actions';
-import { AppStore } from '../../app.reducer';
-import config from '../../config/default';
+import axios from 'axios';
 
-const results = require('../../compileResults/results.json');
-const tags = require('../../compileResults/tags.json');
-const categories = require('../../compileResults/categories.json');
+import config from '../../config/default';
+import { AppStore } from '../../app.reducer';
+
 const styles = require('./index.less');
+
+//获取全部文章
+const ajaxGetPosts = () => 
+  axios.post('/api/system/posts');
 
 interface Props{
   dispatch: Dispatch,
   appStore: AppStore
 }
 
+interface State {
+  posts: CompilerResult[]
+}
+
 class SideBar extends React.Component<Props> {
+
+  state: State;
+
   constructor(props: Props) {
     super(props);
-  }
-  componentDidMount() {
     
+    this.state = {
+      posts: []
+    }
   }
+
+  componentDidMount() {
+
+    this.getPosts();
+
+  }
+
+  async getPosts() {
+    const res = await ajaxGetPosts();
+    this.setState({
+      posts: res.data.data
+    })
+  }
+
+  //通过category划分
+  divideByCategory(src: CompilerResult[]) {
+
+    let result = {};
+
+    src.forEach((v: CompilerResult) => {
+
+      if (!result[v.category]) {
+        result[v.category] = []
+      }
+
+      result[v.category].push(v);
+    });
+    return result;
+  }
+  //通过tag划分
+  divideByTag(src: CompilerResult[]) {
+
+    let result = {};
+
+    src.forEach((v: CompilerResult) => {
+
+      let tags = v.tag.split(',');
+
+      tags.forEach((i) => {
+
+        if (!result[i]) {
+          result[i] = []
+        };
+
+        result[i].push(v);
+      })
+
+    });
+
+    return result;
+  }
+
   render() {
     const { siderbarVisible } = this.props.appStore;
+    const { posts } = this.state;
     const { userModel } = config;
     return (
       <aside id='sidebar' className={`${styles.sidebar} ${siderbarVisible ? styles['sidebar-showing'] : ''}`}>
@@ -36,15 +99,15 @@ class SideBar extends React.Component<Props> {
             <div className={styles['motto']}>{ userModel.motto }</div>
             <nav>
               <span className={styles['nav-item']}>
-                <div>{results.length}</div>
+                <div>{ posts.length }</div>
                 <div>posts</div>
               </span>
               <span className={styles['nav-item']}>
-                <div>{Object.keys(categories).length}</div>
+                <div>{ Object.keys(this.divideByCategory(posts)).length }</div>
                 <div>categories</div>
               </span>
               <span className={styles['nav-item']}>
-                <div>{Object.keys(tags).length}</div>
+                <div>{ Object.keys(this.divideByTag(posts)).length }</div>
                 <div>tags</div>
               </span>
             </nav>

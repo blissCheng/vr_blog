@@ -1,6 +1,8 @@
 import React from 'react';
 import config from '../../config/default';
+
 const styles = require('./index.less')
+
 class Footer extends React.Component{ 
 
   render() {

@@ -1,28 +1,57 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
-import Header from '../../components/header';
-import { time } from '../../classes';
-const results = require('../../compileResults/results.json');
+import axios from 'axios';
+//component and service
+import { Header } from '../../components';
+import { time, animateFlow } from '../../classes';
 
 const styles = require('./index.less');
 
-interface Src {
-  [key: string]: CompilerResult[]
+//获取全部文章
+const ajaxGetPosts = () => 
+  axios.post('/api/system/posts');
+
+interface State {
+  src: DividePost;
+  posts: CompilerResult[]
 }
+
 class Archive extends React.Component<RouteComponentProps> {
-  src: Src;
+
+  state: State
+
   constructor(props: RouteComponentProps){
     super(props);
-    this.src = time.divide(results, 'time');
+    this.state = {
+      src: {},
+      posts: []
+    }
   }
+
+  async componentDidMount() {
+    await this.getPosts();
+    animateFlow.start();
+  }
+
+  async getPosts() {
+    const res = await ajaxGetPosts();
+    this.setState({
+      posts: res.data.data,
+      src: time.divide(res.data.data, 'time')
+    })
+  }
+
   render() {
+
+    const { posts, src } = this.state;
+
     const list = (time: string) => {
       return (
         <>
           {
-            this.src[time].map((v: CompilerResult) => (
-              <li key={v.index} className={'animate-flow'}>
-                <Link to={`/vr/article/detail/${v.index}`}>
+            src[time].map((v: CompilerResult) => (
+              <li key={v.id} className={'animate-flow'}>
+                <Link to={`/vr/article/detail/${v.id}`}>
                   {`${v.time} ${v.title}`}
                 </Link>
               </li>
@@ -31,13 +60,14 @@ class Archive extends React.Component<RouteComponentProps> {
         </>
       )
     };
+
     return (
       <div>
         <Header/>
         <div className={styles['archive']}>
-          <header className={'animate-flow'}>OK! { results.length } posts in total. Keep on posting.</header>
+          <header className={'animate-flow'}>OK! { posts.length } posts in total. Keep on posting.</header>
           {
-            Object.keys(this.src).map((v: string) => (
+            Object.keys(src).map((v: string) => (
               <ul key={v}>
                 <li className={`animate-flow ${styles['year']}`}>{v}</li>
                 { list(v) }
@@ -49,4 +79,5 @@ class Archive extends React.Component<RouteComponentProps> {
     )
   }
 }
+
 export default withRouter(Archive as any);

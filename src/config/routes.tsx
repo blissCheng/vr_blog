@@ -32,7 +32,7 @@ const Routes: RouteData[] = [
     component: dynamicLoad(() => import('../pages/home'))
   },
   {
-    path: '/vr/article/detail/:index',
+    path: '/vr/article/detail/:id',
     name: 'article',
     component: dynamicLoad(() => import('../pages/article'))
   },

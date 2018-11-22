@@ -3,23 +3,26 @@ import { Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
 import routes from './config/routes';
 import history from './config/history';
-import Suspend from './components/suspend';
-import SideBar from './components/sideBar';
-import Footer from './components/footer';
+
+import { Suspend, SideBar, Footer } from './components';
 import { AppStore } from './app.reducer';
+
 const styles = require('./App.less');
+
 interface Props {
   appStore: AppStore;
 }
 
 class App extends React.Component<Props> {
+
   constructor(props: Props) {
     super(props);
   }
-  componentDidMount() {
-  }
+
   public render() {
+    
     const { siderbarVisible } = this.props.appStore;
+
     return (
       <div style={{height: '100%', display: 'flex'}}>
         <div style={{flex: 1}}>

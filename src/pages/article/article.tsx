@@ -1,41 +1,51 @@
 import React from 'react';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
 import $ from 'jquery';
-import styles from './index.less';
-import Header from '../../components/header';
-const articles = require('../../compileResults/results.json');
+import axios from 'axios';
+
+import { Header } from '../../components';
+import { animateFlow } from '../../classes';
+
+const styles = require('./index.less')
+//获取全部文章
+const ajaxGetPostByPost = (id: number) => 
+  axios.get(`/api/system/posts/${id}`);
 
 interface State {
-  articleIndex: number, //文章索引\
+  id: number, //文章索引\
   article: any;
 }
-interface Props extends RouteComponentProps {
-  
-}
-class Article extends React.Component<Props>{
+
+class Article extends React.Component<RouteComponentProps>{
   state: State;
-  constructor(props: Props) {
+  constructor(props: RouteComponentProps) {
     super(props);
     this.state = {
-      articleIndex: 0,
-      article: {}
+      id: 0,
+      article: null
     }
   }
   async componentDidMount() {
     await this.parseUrl();
-
+    await this.getPostById(this.state.id);
     $('#article_content').append(
       this.state.article.content
-    )
+    );
+
+    animateFlow.start();
   }
   //解析url参数
   parseUrl() {
     const dirs = this.props.location.pathname.split('/');
     this.setState({
-      articleIndex: dirs[dirs.length - 1],
-      article: articles.filter((v: CompilerResult) => {
-        return v.index === Number(dirs[dirs.length - 1]);
-      })[0]
+      id: dirs[dirs.length - 1],
+    });
+  }
+  //根据id查找文章
+  async getPostById(id: number) {
+    const res = await ajaxGetPostByPost(id);
+    await this.setState({
+      article: res.data.data
     });
   }
   //
@@ -44,17 +54,22 @@ class Article extends React.Component<Props>{
     return(
       <div>
         <Header/>
-        <div id="article_content" className={`animate-flow ${styles['content-container']}`}>
-          <header className={styles['articale-header']}>
-            <h1 className={styles['articale-header-title']}>
-              {article.title}
-            </h1>
-            <div className={styles['title-meta']}>
-              <span>Posted on <time>{article.time}</time></span>
-              <span>&nbsp; | &nbsp; In <a>{article.tag}</a></span>
+        {
+          article ? (
+            <div id="article_content" className={`animate-flow ${styles['content-container']}`}>
+              <header className={styles['articale-header']}>
+                <h1 className={styles['articale-header-title']}>
+                  {article.title}
+                </h1>
+                <div className={styles['title-meta']}>
+                  <span>Posted on <time>{article.time}</time></span>
+                  <span>&nbsp; | &nbsp; In <a>{article.tag}</a></span>
+                  <span>&nbsp; | &nbsp;{article.pv} views</span>
+                </div>
+              </header>
             </div>
-          </header>
-        </div>
+          ) : null
+        }
       </div>
     )
   }

@@ -1,12 +1,35 @@
 import React from 'react';
-import Header from '../../components/header';
 import { withRouter, RouteComponentProps } from 'react-router-dom';
+import axios from 'axios';
 
-const categories = require('../../compileResults/categories.json');
+import { Header } from '../../components';
+import { animateFlow } from '../../classes';
+
 const styles = require('./index.less');
+//接口
+const ajaxGetCategory = (params: Qs) =>
+  axios.post('/api/system/posts', params);
+
+interface State {
+  categories: DividePost
+}
 
 class CategoryList extends React.Component<RouteComponentProps> {
+  state: State;
 
+  constructor(props: RouteComponentProps) {
+    super(props);
+    this.state = {
+      categories: {}
+    }
+  }
+
+  async componentDidMount() {
+    await this.getCategory({
+      type: 1
+    });
+    animateFlow.start();
+  }
   goDetail(v: string) {
     const { history } = this.props;
     
@@ -17,8 +40,14 @@ class CategoryList extends React.Component<RouteComponentProps> {
       }
     })
   }
+  async getCategory(params: Qs) {
+    const res = await ajaxGetCategory(params);
+    this.setState({
+      categories: res.data.data
+    });
+  }
   render() {
-    const keys = Object.keys(categories);
+    const keys = Object.keys(this.state.categories);
 
     return (
       <div className={styles['category-list']}>

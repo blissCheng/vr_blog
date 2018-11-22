@@ -1,40 +1,44 @@
 import * as React from 'react';
-import * as styles from './index.less';
-import Header from '../../components/header';
-import HomeContent from '../../components/homeContent';
 import axios from 'axios';
 
+import { Header, HomeContent } from '../../components';
+import { animateFlow } from '../../classes';
+
+const styles = require('./index.less');
 //获取全部文章
 const ajaxGetPosts = () => 
   axios.post('/api/system/posts');
 
 interface Props {
   dispatch: (creater: any) => void;
-  test: string;
 }
+
 interface State {
-  results: CompilerResult[]
+  posts: CompilerResult[]
 }
+
 class Home extends React.Component<Props>{
   state: State
   constructor(props: Props) {
     super(props);
     this.state = {
-      results: []
+      posts: []
     }
   }
-  
-  componentDidMount() {
-    this.getPosts();
-    
+  async componentDidMount() {
+
+    await this.getPosts();
+
+    animateFlow.start();
   }
   async getPosts() {
     const res = await ajaxGetPosts();
     this.setState({
-      results: res.data.data
+      posts: res.data.data
     })
   }
   render() {
+    const { posts } = this.state;
     return (
       <div className={styles.wrapper}>
         <Header/>
@@ -42,7 +46,7 @@ class Home extends React.Component<Props>{
           paddingTop: '40px'
         }}>
           {
-            this.state.results.map((v: CompilerResult) => (
+            posts.map((v: CompilerResult) => (
               <HomeContent dataSrc={v} key={v.name}/>
             ))
           }

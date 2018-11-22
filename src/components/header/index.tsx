@@ -1,19 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { animateFlow } from '../../classes';
 import config from '../../config/default';
 const { tags, userModel } = config;
+
 const styles = require('./index.less');
-interface Props {
-  
-}
-export default class Header extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-  componentDidMount() {
-    animateFlow.start();
-  }
+
+export default class Header extends React.Component {
+
   render() {
     return (
       <div className={`${styles['site-meta']}`}>

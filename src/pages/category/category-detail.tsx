@@ -1,17 +1,44 @@
 import * as React from 'react';
 import { withRouter, RouteComponentProps, Link } from 'react-router-dom';
-import Header from '../../components/header';
+import axios from 'axios';
 
-const categories = require('../../compileResults/categories.json');
+import { Header } from '../../components';
+import { animateFlow } from '../../classes';
+
 const styles = require('./index.less');
 
+//接口
+const ajaxGetCategory = (params: Qs) =>
+  axios.post('/api/system/posts', params);
+
+interface State {
+  src: CompilerResult[]
+}
+
 class CategoryDetail extends React.Component<RouteComponentProps> {
-  src: CompilerResult[];
+  state: State;
   constructor(props: RouteComponentProps){
     super(props);
-    this.src = categories[this.props.location.state.name];
+    this.state = {
+      src: []
+    }
+  }
+  async componentDidMount() {
+    await this.getCategory({
+      type: 1
+    });
+
+    animateFlow.start();
+  }
+  async getCategory(params: Qs) {
+    const res = await ajaxGetCategory(params);
+    this.setState({
+      src: res.data.data[this.props.location.state.name]
+    });
   }
   render() {
+
+    const { src } = this.state;
     return (
       <div>
         <Header/>
@@ -19,9 +46,9 @@ class CategoryDetail extends React.Component<RouteComponentProps> {
           <header className={'animate-flow'}>{ this.props.location.state.name } <span style={{fontSize: '17px'}}>Category</span></header>
           <ul>
             {
-              this.src.map((v: CompilerResult) => (
-                <li key={v.index} className={'animate-flow'}>
-                  <Link to={`/vr/article/detail/${v.index}`}>
+              src.map((v: CompilerResult) => (
+                <li key={v.id} className={'animate-flow'}>
+                  <Link to={`/vr/article/detail/${v.id}`}>
                     {`${v.time} ${v.title}`}
                   </Link>
                 </li>
