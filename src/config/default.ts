@@ -1,6 +1,6 @@
 const config = {
   userModel: {
-    name: 'Xs Cheng',
+    name: 'TEST NAME',
     motto: 'Life is Now.',
     avator: 'hj.png',
     links: {

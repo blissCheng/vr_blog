@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Router, Route, Switch } from 'react-router-dom';
+import { Router, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import routes from './config/routes';
 import history from './config/history';
@@ -38,6 +38,13 @@ class App extends React.Component<Props> {
                   />
                 ))
               }
+              <Route
+                exact
+                path="/"
+                render={props =>
+                  <Redirect to="/vr/home" />
+                }
+              />
             </Switch>
           </Router>
           <Footer/>
