@@ -1,15 +1,16 @@
 /**
  * 将md文件编译成tsx
  * */
-require('babel-polyfill');
+require('babel-plugin-transform-runtime');
 const fs = require('fs');
 const http = require('http');
+const process = require('process');
 const marked = require('marked');
 const path = require('path');
-const mdPath = path.join(__dirname, './marks');
+const mdPath = path.join(__dirname, '../../src/marks');
 const jsonPath = path.join(__dirname, './compileResults');
 
-const url = '47.101.178.47';
+const ip =  process.argv[2];
 
 //取p标签中的值
 const extractCenter = /<p.*?>\{([\s\S]*)\}<\/p>/;
@@ -22,7 +23,7 @@ const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
 const removeStr = /\s+/g;
 
 const getPostsOptions = {
-  hostname: url,
+  hostname: ip,
   port: 9000,
   path: '/system/posts',
   method: 'POST',
@@ -33,7 +34,7 @@ const getPostsOptions = {
 };
 
 const insertPostsOptions = {
-  hostname: url,
+  hostname: ip,
   port: 9000,
   path: '/system/posts/insert',
   method: 'POST',
