@@ -1,7 +1,6 @@
 /**
  * 将md文件编译成tsx
  * */
-require('babel-plugin-transform-runtime');
 const fs = require('fs');
 const http = require('http');
 const process = require('process');
@@ -20,7 +19,7 @@ const extractAfter = /\}<\/p>\n([\s\S]*)/;
 const extractSome = /<.*?>([\s\S]*)<\/.*?>/;
 
 //排除字符
-const removeStr = /\s+/g;
+const removeStr =/(^\s*)|(\s*$)/g;
 
 const getPostsOptions = {
   hostname: ip,
@@ -62,18 +61,18 @@ class MarkedCompile {
     let text = data.match(extractCenter)[1].replace(removeStr, ""),
         strs = text.split(';'),
         attr = {};
+    // console.log(data.match(extractCenter)[1].split(';'));
     //提取标题及标签等信息
     strs.map(v => {
       if (v) {
         let str = v.split(':');
-        attr[str[0]] = str[1];
+        attr[str[0].replace(removeStr, "")] = str[1].replace(removeStr, "");
       }
     });
-
     //剔除首个p标签
     attr.content = data.match(extractAfter)[1];
     
-    attr.introduce = this.extract(data, 200);
+    attr.introduce = this.extract(data, 100);
     return {
       ...attr
     }

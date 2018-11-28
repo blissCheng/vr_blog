@@ -69,7 +69,7 @@
   },
   "scripts": {
     "start": "npm run marked && node scripts/start.js",
-    "build": "npm run marked && node scripts/build.js",
+    "build": "npm run marked 47.101.178.47 && node scripts/build.js",
     "test": "node scripts/test.js --env=jsdom",
     "deploy": "npm run build && rsync -azP --delete-after build/* root@47.101.178.47:/root/www/vr_blog",
     "marked": "node config/user/start.js"
@@ -79,7 +79,6 @@
     "@types/node": "^10.5.3",
     "@types/react": "^16.4.7",
     "@types/react-dom": "^16.0.6",
-    "babel-plugin-transform-runtime": "^6.23.0",
     "typescript": "^2.9.2"
   },
   "jest": {
