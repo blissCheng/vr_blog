@@ -4,7 +4,11 @@ export class Time {
   constructor() {
 
   };
-  //target 根据此字段进行划分 
+  /**
+   *  划分时间组
+   * @param src 数据源
+   * @param target 根据此字段进行划分
+   */
   public divide(src: any[], target: string) {
     let arr = [ ...src ],
       results = {};
