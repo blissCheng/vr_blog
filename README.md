@@ -13,7 +13,7 @@
   npm install 或者 yarn
 ```
 
-执行npm start启动本地服务
+执行npm start启动本地服务。 start与build会执行```npm run marked```子进程，并启动 ```/config/user/start.js```脚本。然后执行babel配置转化与marked编译进程。 详情请看 package.json
 
 ```
   npm start
